@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyView Drones | Aerial Photography & Videography</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+
+
+        
+        
+
+        :root {
+            --primary-blue: #00B4D8;
+            --dark-navy: #03045E;
+            --pure-white: #FFFFFF;
+            --soft-gray: #E2E2E2;
+            --golden: #FFD700;
+            --earth-green: #2E8B57;
+        }
+        .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .video-grid video {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    background-color: #000; /* Optional: looks cleaner for portrait */
+  }
+
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--pure-white);
+            color: var(--dark-navy);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h1, h2, h3 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-blue);
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-blue);
+            color: var(--pure-white);
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-blue);
+            color: var(--pure-white);
+        }
+        
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--pure-white);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--primary-blue);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-btn {
+            display: none;
+            cursor: pointer;
+            color: var(--pure-white);
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--pure-white);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(3, 4, 94, 0.7), rgba(0, 180, 216, 0.5));
+            z-index: 1;
+        }
+        
+        .hero video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: var(--soft-gray);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            margin: 0 10px 10px;
+            background: transparent;
+            border: 2px solid var(--dark-navy);
+            color: var(--dark-navy);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--dark-navy);
+            color: var(--pure-white);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 250px;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(3, 4, 94, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-overlay h3 {
+            color: var(--pure-white);
+            margin-bottom: 5px;
+        }
+        
+        .portfolio-overlay p {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+            border-radius: 5px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            color: var(--pure-white);
+            font-size: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background: var(--pure-white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text h3 {
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        .skills {
+            margin-top: 30px;
+        }
+        
+        .skill-item {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: var(--soft-gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 5px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--soft-gray);
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .testimonial-slide {
+            background: var(--pure-white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: none;
+        }
+        
+        .testimonial-slide.active {
+            display: block;
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .testimonial-content::before, .testimonial-content::after {
+            content: '"';
+            font-size: 2rem;
+            color: var(--primary-blue);
+            opacity: 0.5;
+        }
+        
+        .testimonial-content::before {
+            position: absolute;
+            top: -15px;
+            left: -10px;
+        }
+        
+        .testimonial-content::after {
+            position: absolute;
+            bottom: -30px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background: var(--primary-blue);
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-navy);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary-blue);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.2);
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            color: var(--pure-white);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--pure-white);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-blue);
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: var(--pure-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background: var(--dark-navy);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--dark-navy);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonial-slide {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Sky<span>View</span></a>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video autoplay muted loop>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-flying-a-drone-over-a-lake-12255-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1>Elevate Your Perspective</h1>
+            <p>Professional aerial photography and videography services capturing stunning landscapes, real estate, and special events from breathtaking heights.</p>
+            <a href="#portfolio" class="btn">View Portfolio</a>
+            <a href="#contact" class="btn btn-outline">Get in Touch</a>
+        </div>
+        <a href="#portfolio" class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- Portfolio Section -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+      <h2>Our Portfolio</h2>
+  
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all">All</button>
+      </div>
+  
+      <!-- Portfolio Section -->
+<section class="portfolio" id="portfolio">
+    <div class="video-grid">
+
+        
+
+        <!--portrait videos-->
+        <iframe 
+        src="https://drive.google.com/file/d/1_aVD4ANGdOn05HL3P7cwUXpJKng-rbaI/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+        <iframe 
+        src="https://drive.google.com/file/d/1IQ9mRegQd5n-t-Uu4zuJi47hrmaw29yD/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+    
+        <iframe 
+        src="https://drive.google.com/file/d/1IQ9mRegQd5n-t-Uu4zuJi47hrmaw29yD/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1KS83k2pxqbKM9B2kq4Uc831-BM9ZTyDY/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1XNboAivDm7upsw2ec8F_HupNT_UrRnS7/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1mzeeU0qrq6zZTHSEPjhI-q6zCGB30c4h/preview" 
+        style="width: 100%; aspect-ratio: 9 / 16; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);" 
+        allow="autoplay">
+        </iframe>
+        
+
+        <!--landscape videos-->
+        <iframe src="https://drive.google.com/file/d/1zAWKNGNHTroTkcuuesEcnF3IPkyzd0-3/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/14IXagi0XovV7_44DyVZRVVvwvAIbhNzq/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/14IXagi0XovV7_44DyVZRVVvwvAIbhNzq/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1xXe3TXzHWZMT5fjUTivMoUvq6JptLEPM/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+
+
+        <iframe src="https://drive.google.com/file/d/1FwDxTR6M6m9IgtuKiB3VC1kjdgTrrD59/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1DPF-rt-an9fw3N-iG8nWkQhcoUeX0cri/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1LOLUfjX6x2dXyp4toAf2aSgpxKaBGfD4/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1yscBIAe_HrDg_VsN7SguAUksSC8WyrWi/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1FLwdVIwINrQKl6WlMfO49J9p0vbKnMkk/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        <iframe src="https://drive.google.com/file/d/1gaXvwLKrX-hrbJVqghzCZzzvSOVx89Jd/preview"
+        style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);"
+        allow="autoplay">
+        </iframe>
+        
+
+        
+
+      </div>
+  </section>
+  
+    </div>
+  </section>
+  
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close">&times;</span>
+            <img src="" alt="">
+            <div class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Aerial Photography</h3>
+                    <p>High-resolution aerial images perfect for real estate listings, construction progress, and landscape documentation.</p>
+                    <a href="#contact" class="btn btn-outline">Learn More</a>
+                </div>
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Production</h3>
+                    <p>Cinematic drone footage for commercials, music videos, events, and promotional content with professional editing.</p>
+                    <a href="#contact" class="btn btn-outline">Learn More</a>
+                </div>
+                
+                
+               
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Capturing the World From Above</h3>
+                    <p>SkyView Drones is a professional aerial photography and videography service founded in 2024. Using the DJI Mini 3, I bring years of experience and an artistic vision to every project, capturing breathtaking visuals from unique perspectives.</p>
+                    <p>I specialize in creating stunning content that showcases properties, landscapes, and events in ways that traditional photography simply can't match.</p>
+
+                    <div class="skills">
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Aerial Photography</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Video Production</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Post-Processing</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn">Contact Us</a>
+                </div>
+                <div class="about-image">
+                    <a href="https://ibb.co/84QhczzT"><img src="https://i.ibb.co/Z1bZmHHt/dji-mini-3-cpma0000058401-increementing-number-887639-1200x.webp" alt="dji-mini-3-cpma0000058401-increementing-number-887639-1200x" border="0"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+ <!--   <section class="testimonials">
+        <div class="container">
+            <h2>Client Testimonials</h2>
+            <div class="testimonial-slider">
+                 Testimonial 1 
+                <div class="testimonial-slide active">
+                    <div class="testimonial-content">
+                        <p>SkyView's aerial footage of our luxury development was instrumental in selling out the project before completion. The quality and angles they captured were simply breathtaking.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>CEO, Horizon Developments</p>
+                        </div>
+                    </div>
+                </div>
+                 Testimonial 2 
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <p>The wedding video SkyView created for us was beyond our expectations. They captured moments we didn't even know were happening. Worth every penny!</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Wedding Client</p>
+                        </div>
+                    </div>
+                </div>
+                 Testimonial 3 
+                <div class="testimonial-slide">
+                    <div class="testimonial-content">
+                        <p>As a nature documentary producer, I rely on SkyView for their ability to get the perfect shot in challenging environments. Their pilots are true professionals.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Emily Rodriguez</h4>
+                            <p>Producer, NatureVision Films</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <div class="testimonial-dot active" data-slide="0"></div>
+                <div class="testimonial-dot" data-slide="1"></div>
+                <div class="testimonial-dot" data-slide="2"></div>
+            </div>
+        </div>
+    </section>-->
+
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <p>Tanishq Orchid phase 1, Charholi<br>Charholi, Pune 412105</p>
+                        </div>
+                        <div class="contact-item">
+                            <a href="https://wa.me/919309316566" target="_blank" class="contact-item">
+                                <div class="contact-icon">
+                                  <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <p>+91 93093 16566</p>
+                              </a>
+                              
+                          </div>
+                          
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p>ved.drone79@gmail.com</p>
+                        </div>
+                    </div>
+                    <h3>Service Area</h3>
+                    <p>We serve all of Pune and surrounding areas including Pimpri-Chinchwad, Hinjewadi, Baner, Kothrud, and more. Travel is available for projects outside our primary service area upon request.</p>
+
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ved_clickpics?igsh=ZmVuN3VrOThxMTYx&utm_source=qr" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form action="https://formsubmit.co/ved.drone79@gmail.com" method="POST">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://skyviewdrones.drv.tw/thank-you.html">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service">
+                                <option value="photography">Aerial Photography</option>
+                                <option value="videography">Video Production</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SkyView Drones</h3>
+                    <p>Elevating perspectives through professional aerial photography and videography services.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Aerial Photography</a></li>
+                        <li><a href="#">Video Production</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+919309316566">+919309316566</a></li>
+                        <li><a href="mailto:info@skyviewdrones.com">ved.drone79@gmail.com</a></li>
+                        <li>Tanishq Orchid phase 1, Charholi<br>Charholi, Pune 412105</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SkyView Drones. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Sticky Header on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.backgroundColor = 'rgba(3, 4, 94, 0.95)';
+                header.style.padding = '10px 0';
+            } else {
+                header.style.backgroundColor = 'transparent';
+                header.style.padding = '20px 0';
+            }
+        });
+        
+        // Portfolio Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Lightbox
+        const portfolioItemsContainer = document.querySelector('.portfolio-grid');
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-content img');
+        const lightboxCaption = document.querySelector('.lightbox-caption');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        portfolioItemsContainer.addEventListener('click', (e) => {
+            if (e.target.closest('.portfolio-item')) {
+                const item = e.target.closest('.portfolio-item');
+                const imgSrc = item.querySelector('img').getAttribute('src');
+                const title = item.querySelector('h3').textContent;
+                const location = item.querySelector('p').textContent;
+                
+                lightboxImg.setAttribute('src', imgSrc);
+                lightboxCaption.textContent = `${title} - ${location}`;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+        
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Testimonial Slider
+        const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            testimonialSlides.forEach(slide => slide.classList.remove('active'));
+            testimonialDots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonialSlides[index].classList.add('active');
+            testimonialDots[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // Auto slide change
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % testimonialSlides.length;
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For this example, we'll just show an alert
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
